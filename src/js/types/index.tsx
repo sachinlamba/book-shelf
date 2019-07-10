@@ -1,6 +1,7 @@
 export interface StoreState {
     books: Book[],
-    user: String
+    user: String,
+    pageActive: String
 }
 
 export interface ActionPayload {
@@ -9,11 +10,15 @@ export interface ActionPayload {
 }
 
 export interface Book {
-    id: number,
+    isbn: String,
     title: String,
+    subtitle: String,
     author: String,
-    price: number,
-    publishedOn: String
+    published: String,
+    publisher: String,
+    pages: number,
+    description?: String,
+    website?: String
 }
 export interface Books {
     books: Book[]

@@ -1,54 +1,67 @@
 import React from 'react';
 import './App.css';
 import BooksList from "./js/components/BooksList";
+import AddBook from "./js/components/AddBook";
 import { connect } from "react-redux";
 import { StoreState, Books, Book } from './js/types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
+import { activateSceen } from './js/actions/index';
 
 interface IProps {
+  pageActive: String;
   books: Book[];
-  postBook: (book: Book) => String;
+  changeSceen: (sceen: String) => Object;
 }
 
-const App: React.FC<IProps> = ({
-  books,
-  postBook
-}) => {
+interface IState{
+  pageActive: String;
+}
 
-  const handleClick = () => {
-    postBook({
-         id: 4,
-         title: "AAAA",
-         author: "BBBB",
-         price: 1234,
-         publishedOn: "04-04-2018"
-     });
+export class App extends React.Component<IProps, IState>{
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      pageActive: props.pageActive
+    };
+    this.handleClick = this.handleClick.bind(this);
   };
 
-  return (
-    <div className="App">
-      <h2>Books Shelf</h2>
-      <BooksList />
-      <button onClick={handleClick}>Add</button>
-    </div>
-  );
+  handleClick() {
+    this.props.changeSceen("Search");
+  }
+
+   render() {
+     return (
+      <div className="App">
+      {
+        this.props.pageActive == "Home" ?
+          <div>
+            <h2>Books Shelf</h2>
+            <BooksList />
+            <button onClick={this.handleClick}>Want to Add a Book?</button>
+          </div>
+        :
+          <div><AddBook /></div>
+      }
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (store: StoreState) => {
   return {
-    books: store.books
+    books: store.books,
+    pageActive: store.pageActive
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    postBook: (book: Book) => {
-      console.log("Hi", book.title);
-      return "HHH"
-    }
+    changeSceen: (sceen: String) => dispatch(activateSceen(sceen))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
