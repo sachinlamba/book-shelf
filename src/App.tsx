@@ -34,17 +34,12 @@ export class App extends React.Component<IProps, IState>{
      switch(this.props.pageActive){
        case "Home":
           page.push(
-              <div>
-              <h2>Books Shelf</h2>
               <BooksList />
-            </div>
           );
           break;
         case "NewBook":
           page.push(
-              <div>
                 <AddBook newBookCheck={this.props.newBookCheck} bookToUpdate={this.props.bookToUpdate}/>
-              </div>
           );
           break;
         default:

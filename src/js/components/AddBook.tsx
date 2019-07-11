@@ -88,44 +88,44 @@ export class AddBook extends React.Component<IProps, IState>{
   }
 
   render() {
-    return <div>
-      <h2>Book Details</h2>
-      <div style={{display: "block", margin: "10px", border: "1px solid #ccc", borderRadius: "10px"}}>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>ISBN :</div>
-          <div style={{flex: 1}}><input disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/></div>
+    return <div className="book-adder">
+      <div className="list-title">Fill Book Details</div>
+      <div className="book-individual">
+        <div className="book-option">
+          <div className="book-field">ISBN :</div>
+          <div className="book-details"><input disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Title :</div>
-          <div style={{flex: 1}}><input value={this.state.title} onChange={this.changeHandler} type="text" name="title"/></div>
+        <div className="book-option">
+          <div className="book-field">Title :</div>
+          <div className="book-details"><input value={this.state.title} onChange={this.changeHandler} type="text" name="title"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Subtitle :</div>
-          <div style={{flex: 1}}><input value={this.state.subtitle} onChange={this.changeHandler} type="text" name="subtitle"/></div>
+        <div className="book-option">
+          <div className="book-field">Subtitle :</div>
+          <div className="book-details"><input value={this.state.subtitle} onChange={this.changeHandler} type="text" name="subtitle"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Author Name :</div>
-          <div style={{flex: 1}}><input value={this.state.author} onChange={this.changeHandler} type="text" name="author"/></div>
+        <div className="book-option">
+          <div className="book-field">Author Name :</div>
+          <div className="book-details"><input value={this.state.author} onChange={this.changeHandler} type="text" name="author"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Published On :</div>
-          <div style={{flex: 1}}><input value={this.state.published} onChange={this.changeHandler} type="date" name="published"/></div>
+        <div className="book-option">
+          <div className="book-field">Published On :</div>
+          <div className="book-details"><input value={this.state.published} onChange={this.changeHandler} type="date" name="published"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Publisher :</div>
-          <div style={{flex: 1}}><input value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/></div>
+        <div className="book-option">
+          <div className="book-field">Publisher :</div>
+          <div className="book-details"><input value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Pages :</div>
-          <div style={{flex: 1}}><input value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/></div>
+        <div className="book-option">
+          <div className="book-field">Pages :</div>
+          <div className="book-details"><input value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Description :</div>
-          <div style={{flex: 1}}><textarea rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea></div>
+        <div className="book-option">
+          <div className="book-field">Description :</div>
+          <div className="book-details"><textarea rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea></div>
         </div>
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}}>Website Link :</div>
-          <div style={{flex: 1}}><input value={this.state.website} onChange={this.changeHandler} type="text" name="website"/></div>
+        <div className="book-option">
+          <div className="book-field">Website Link :</div>
+          <div className="book-details"><input value={this.state.website} onChange={this.changeHandler} type="text" name="website"/></div>
         </div>
       </div>
       {

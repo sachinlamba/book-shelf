@@ -21,9 +21,9 @@ export class Header extends React.Component<IProps>{
   }
 
   render() {
-    return <div style={{display: "flex"}}>
-      <div style={{flex: 1, border: "1px solid #ccc", margin: "5px"}} onClick={this.changeHandler.bind(this, "Home")}>Home</div>
-      <div style={{flex: 1, border: "1px solid #ccc", margin: "5px"}} onClick={this.changeHandler.bind(this, "NewBook")}>Add a Book</div>
+    return <div className="Header">
+      <div className={"Header-Child " + (this.props.pageActive != "Home" ? "Header-enable" : "")} onClick={this.changeHandler.bind(this, "Home")}>Home</div>
+      <div className={"Header-Child " + (this.props.pageActive != "NewBook" ? "Header-enable" : "")} onClick={this.changeHandler.bind(this, "NewBook")}>Add a Book</div>
     </div>
   }
 };
