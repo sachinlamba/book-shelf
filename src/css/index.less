@@ -13,11 +13,17 @@ button {
   margin: 4px 2px;
   background-color: white;
   transition-duration: 0.4s;
-  cursor: pointer;
   &:hover {
+    cursor: pointer;
     background-color: #4CAF50; /* Green */
     color: white;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  &:disabled{
+    border: 2px solid #ccc;
+    cursor: not-allowed;
+    background-color: white;
+    color: black;
   }
 }
 

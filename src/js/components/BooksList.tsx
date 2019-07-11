@@ -140,8 +140,8 @@ export class BooksList extends React.Component<IProps, IState>{
                 <div className="book-details">{el.website}</div>
               </div>
               <div className="book-option">
-                <div className="book-details" onClick={this.handleDelete.bind(this, el.isbn)}><button>Delete</button></div>
-                <div className="book-details" onClick={this.handleUpdate.bind(this, el)}><button>Update</button></div>
+                <div className="book-details"><button onClick={this.handleDelete.bind(this, el.isbn)}>Delete</button></div>
+                <div className="book-details"><button onClick={this.handleUpdate.bind(this, el)}>Update</button></div>
               </div>
 
             </div>

@@ -86,21 +86,27 @@ export class AddBook extends React.Component<IProps, IState>{
       const newState = { [name]: value } as Pick<IState, keyof IState>;
       this.setState(newState);
   }
+  submissionEnable(state: IState){
+    return this.state.isbn && this.state.title && this.state.subtitle && this.state.author
+            && this.state.published && this.state.publisher && this.state.pages > 0
+            && this.state.description && this.state.website ;
+  }
 
   render() {
+    let enableSubmit = this.submissionEnable(this.state);
     return <div className="book-adder">
       <div className="list-title">Fill Book Details</div>
       <div className="book-individual">
         <div className="book-option">
           <div className="book-field">ISBN :</div>
           <div className="book-details input-div">
-            <input className="input-field" required disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/>
+            <input className="input-field" disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Title :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.title} onChange={this.changeHandler} type="text" name="title"/>
+            <input className="input-field" value={this.state.title} onChange={this.changeHandler} type="text" name="title"/>
           </div>
         </div>
         <div className="book-option">
@@ -112,49 +118,45 @@ export class AddBook extends React.Component<IProps, IState>{
         <div className="book-option">
           <div className="book-field">Author Name :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.author} onChange={this.changeHandler} type="text" name="author"/>
+            <input className="input-field" value={this.state.author} onChange={this.changeHandler} type="text" name="author"/>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Published On :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.published} onChange={this.changeHandler} type="date" name="published"/>
+            <input className="input-field" value={this.state.published} onChange={this.changeHandler} type="date" name="published"/>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Publisher :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/>
+            <input className="input-field" value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Pages :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/>
+            <input className="input-field" value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Description :</div>
           <div className="book-details input-div">
-            <textarea required rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea>
+            <textarea className="input-textarea" rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea>
           </div>
         </div>
         <div className="book-option">
           <div className="book-field">Website Link :</div>
           <div className="book-details input-div">
-            <input className="input-field" required value={this.state.website} onChange={this.changeHandler} type="text" name="website"/>
+            <input className="input-field" value={this.state.website} onChange={this.changeHandler} type="text" name="website"/>
           </div>
         </div>
       </div>
       {
         this.props.newBookCheck ?
-        <div>
-          <button onClick={this.handleAdd}>Add</button>
-        </div>
+          enableSubmit ? <button onClick={this.handleAdd}>Add</button> : <button disabled>Add</button>
         :
-        <div>
-          <button onClick={this.handleUpdate}>Update</button>
-        </div>
+          enableSubmit ? <button onClick={this.handleUpdate}>Update</button> : <button disabled>Update</button>
       }
 
     </div>
