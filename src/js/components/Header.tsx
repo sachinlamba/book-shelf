@@ -22,8 +22,8 @@ export class Header extends React.Component<IProps>{
 
   render() {
     return <div className="Header">
-      <div className={"Header-Child " + (this.props.pageActive != "Home" ? "Header-enable" : "")} onClick={this.changeHandler.bind(this, "Home")}>Home</div>
-      <div className={"Header-Child " + (this.props.pageActive != "NewBook" ? "Header-enable" : "")} onClick={this.changeHandler.bind(this, "NewBook")}>Add a Book</div>
+      <div className={"Header-Child " + (this.props.pageActive != "Home" ? "Header-enable" : "Header-disable")} onClick={this.changeHandler.bind(this, "Home")}>Home</div>
+      <div className={"Header-Child " + (this.props.pageActive != "NewBook" ? "Header-enable" : "Header-disable")} onClick={this.changeHandler.bind(this, "NewBook")}>Add a Book</div>
     </div>
   }
 };
