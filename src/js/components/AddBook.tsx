@@ -93,39 +93,57 @@ export class AddBook extends React.Component<IProps, IState>{
       <div className="book-individual">
         <div className="book-option">
           <div className="book-field">ISBN :</div>
-          <div className="book-details"><input required disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Title :</div>
-          <div className="book-details"><input required value={this.state.title} onChange={this.changeHandler} type="text" name="title"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.title} onChange={this.changeHandler} type="text" name="title"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Subtitle :</div>
-          <div className="book-details"><input value={this.state.subtitle} onChange={this.changeHandler} type="text" name="subtitle"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" value={this.state.subtitle} onChange={this.changeHandler} type="text" name="subtitle"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Author Name :</div>
-          <div className="book-details"><input required value={this.state.author} onChange={this.changeHandler} type="text" name="author"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.author} onChange={this.changeHandler} type="text" name="author"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Published On :</div>
-          <div className="book-details"><input required value={this.state.published} onChange={this.changeHandler} type="date" name="published"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.published} onChange={this.changeHandler} type="date" name="published"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Publisher :</div>
-          <div className="book-details"><input required value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.publisher} onChange={this.changeHandler} type="text" name="publisher"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Pages :</div>
-          <div className="book-details"><input required value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.pages} onChange={this.changeHandler} type="number" name="pages"/>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Description :</div>
-          <div className="book-details"><textarea required rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea></div>
+          <div className="book-details input-div">
+            <textarea required rows={6} cols={60} onChange={this.changeHandler} name="description">{this.state.description}</textarea>
+          </div>
         </div>
         <div className="book-option">
           <div className="book-field">Website Link :</div>
-          <div className="book-details"><input required value={this.state.website} onChange={this.changeHandler} type="text" name="website"/></div>
+          <div className="book-details input-div">
+            <input className="input-field" required value={this.state.website} onChange={this.changeHandler} type="text" name="website"/>
+          </div>
         </div>
       </div>
       {

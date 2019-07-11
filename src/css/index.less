@@ -52,7 +52,7 @@ button {
   color: red;
   font-weight: 600;
 }
-.book-list{  
+.book-list{
   .book-option{
     display: flex;
     .book-field{
@@ -66,11 +66,46 @@ button {
 .book-adder{
   .book-option{
     display: flex;
+    margin: 5px;
     .book-field{
       flex:1;
     }
     .book-details{
       flex: 1;
     }
+  }
+}
+.book-finder{
+  display: flex;
+  .field{
+    flex:1;
+  }
+  .active-field{
+    background-color: dodgerblue;
+    padding: 5px;
+    color: white;
+    border-radius: 15px;
+  }
+}
+
+.input-div{
+  border: 1px solid #ccc;
+  width: 500px;
+  margin: auto;
+  border-radius: 15px;
+  .input-field{
+    width: 90%;
+    outline: none;
+    padding: 0px 5px;
+    margin: 5px;
+    height: 25px;
+    border: none;
+  }
+  .input-textarea{
+    width: 90%;
+    outline: none;
+    padding: 0px 5px;
+    margin: 5px;
+    border: none;
   }
 }
