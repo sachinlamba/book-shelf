@@ -14,9 +14,20 @@ interface IProps {
   BookOpener: (book: Book) => any;
   getData: () => any;
 }
+interface IState{
+  searchText: string;
+  searchField: string;
+}
 
-export class BooksList extends React.Component<IProps>{
-
+export class BooksList extends React.Component<IProps, IState>{
+  constructor(props: IProps){
+    super(props);
+    this.state = {
+      searchText: "",
+      searchField: "isbn"
+    }
+    this.searchTextUpdate = this.searchTextUpdate.bind(this);
+  }
   componentDidMount(){
     this.props.getData();
   };
@@ -36,54 +47,91 @@ export class BooksList extends React.Component<IProps>{
     this.props.changeSceen("NewBook");
   }
 
+  searchTextUpdate(event: { target: { name: any; value: any; }; }) {
+    //https://stackoverflow.com/questions/55729742/react-typescript-argument-of-type-x-number-any-is-not-assignable-to
+      const name = event.target.name;
+      const value = event.target.value;
+      const newState = { [name]: value } as Pick<IState, keyof IState>;
+      this.setState(newState);
+  }
+
+  searchFieldUpdate(field: string) {
+      this.setState({
+        searchField: field
+      });
+  }
+
   render() {
     return <div className="book-list">
       <div className="list-title">Books Shelf</div>
-      {this.props.books.map((el: Book) => (
-        <div className="book-individual">
-          <div className="book-option">
-            <div className="book-field">ISBN :</div>
-            <div className="book-details">{el.isbn}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Title :</div>
-            <div className="book-details">{el.title}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Subtitle :</div>
-            <div className="book-details">{el.subtitle}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Author Name :</div>
-            <div className="book-details">{el.author}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Published On :</div>
-            <div className="book-details">{el.published}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Publisher :</div>
-            <div className="book-details">{el.publisher}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Pages :</div>
-            <div className="book-details">{el.pages}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Description :</div>
-            <div className="book-details">{el.description}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-field">Website Link :</div>
-            <div className="book-details">{el.website}</div>
-          </div>
-          <div className="book-option">
-            <div className="book-details" onClick={this.handleDelete.bind(this, el.isbn)}><button>Delete</button></div>
-            <div className="book-details" onClick={this.handleUpdate.bind(this, el)}><button>Update</button></div>
-          </div>
-
+      <div>
+        <input type="text" name="searchText" onChange={this.searchTextUpdate} value={this.state.searchText}/>
+        <div>
+          <input type="radio" checked={this.state.searchField == "isbn"} onChange={this.searchFieldUpdate.bind(this, "isbn")} /> ISBN
+          <input type="radio" checked={this.state.searchField == "title"} onChange={this.searchFieldUpdate.bind(this, "title")} /> Title
+          <input type="radio" checked={this.state.searchField == "subtitle"} onChange={this.searchFieldUpdate.bind(this, "subtitle")} /> Subtitle
+          <input type="radio" checked={this.state.searchField == "author"} onChange={this.searchFieldUpdate.bind(this, "author")} /> Author Name
+          <input type="radio" checked={this.state.searchField == "publisher"} onChange={this.searchFieldUpdate.bind(this, "publisher")} /> Publisher
+          {
+            // <input type="radio" checked={this.state.searchField == "published"} onChange={this.searchFieldUpdate.bind(this, "published")} /> Published On
+            // <input type="radio" checked={this.state.searchField == "pages"} onChange={this.searchFieldUpdate.bind(this, "pages")} /> Pages
+          }
+          <input type="radio" checked={this.state.searchField == "description"} onChange={this.searchFieldUpdate.bind(this, "description")} /> Description
+          <input type="radio" checked={this.state.searchField == "website"} onChange={this.searchFieldUpdate.bind(this, "website")} /> Website Link
         </div>
-      ))}
+      </div>
+      {
+        this.props.books.map((el: any) => {
+            let desc = String(el[this.state.searchField]).toLowerCase(), searchText = this.state.searchText.toLowerCase();
+            if(!desc.includes(searchText)){
+              return false;
+            }
+            return <div className="book-individual">
+              <div className="book-option">
+                <div className="book-field">ISBN :</div>
+                <div className="book-details">{el.isbn}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Title :</div>
+                <div className="book-details">{el.title}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Subtitle :</div>
+                <div className="book-details">{el.subtitle}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Author Name :</div>
+                <div className="book-details">{el.author}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Published On :</div>
+                <div className="book-details">{el.published}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Publisher :</div>
+                <div className="book-details">{el.publisher}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Pages :</div>
+                <div className="book-details">{el.pages}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Description :</div>
+                <div className="book-details">{el.description}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-field">Website Link :</div>
+                <div className="book-details">{el.website}</div>
+              </div>
+              <div className="book-option">
+                <div className="book-details" onClick={this.handleDelete.bind(this, el.isbn)}><button>Delete</button></div>
+                <div className="book-details" onClick={this.handleUpdate.bind(this, el)}><button>Update</button></div>
+              </div>
+
+            </div>
+          }
+        )
+      }
     </div>
   }
 };

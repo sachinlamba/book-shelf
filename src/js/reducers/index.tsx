@@ -12,7 +12,6 @@ const initialState = {
 };
 
 function rootReducer(state: StoreState = initialState, action: ActionPayload):StoreState {
-
   switch(action.type){
     case BOOK_LIST:
       return Object.assign({}, state, {

@@ -47,7 +47,7 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 10px;
 }
-.book-list .list-title {
+.list-title {
   font-size: 22px;
   color: red;
   font-weight: 600;
