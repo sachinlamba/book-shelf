@@ -1,24 +1,26 @@
 export interface StoreState {
     books: Book[],
-    user: String,
-    pageActive: String
+    user: string,
+    pageActive: string,
+    openBook: Book | string,
+    reload: boolean
 }
 
 export interface ActionPayload {
-    type: String,
+    type: string,
     payload?: any
 }
 
 export interface Book {
-    isbn: String,
-    title: String,
-    subtitle: String,
-    author: String,
-    published: String,
-    publisher: String,
+    isbn: string,
+    title: string,
+    subtitle: string,
+    author: string,
+    published: string,
+    publisher: string,
     pages: number,
-    description?: String,
-    website?: String
+    description?: string,
+    website?: string
 }
 export interface Books {
     books: Book[]

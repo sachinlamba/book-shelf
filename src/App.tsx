@@ -8,17 +8,17 @@ import { StoreState, Books, Book } from './js/types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction, bindActionCreators } from 'redux';
 import { activateSceen } from './js/actions/index';
-import { getData } from "./js/actions/index";
 
 interface IProps {
-  pageActive: String;
+  pageActive: string;
   books: Book[];
-  changeSceen: (sceen: String) => Object;
-  getData: () => any;
+  bookToUpdate: Book | string;
+  newBookCheck: Boolean;
+  changeSceen: (sceen: string) => Object;
 }
 
 interface IState{
-  pageActive: String;
+  pageActive: string;
 }
 
 export class App extends React.Component<IProps, IState>{
@@ -27,10 +27,6 @@ export class App extends React.Component<IProps, IState>{
     this.state = {
       pageActive: props.pageActive
     };
-  };
-
-  componentDidMount(){
-    this.props.getData();
   };
 
    render() {
@@ -46,7 +42,9 @@ export class App extends React.Component<IProps, IState>{
           break;
         case "NewBook":
           page.push(
-              <div><AddBook /></div>
+              <div>
+                <AddBook newBookCheck={this.props.newBookCheck} bookToUpdate={this.props.bookToUpdate}/>
+              </div>
           );
           break;
         default:
@@ -64,14 +62,15 @@ export class App extends React.Component<IProps, IState>{
 const mapStateToProps = (store: StoreState) => {
   return {
     books: store.books,
-    pageActive: store.pageActive
+    pageActive: store.pageActive,
+    bookToUpdate: store.openBook,
+    newBookCheck: store.openBook == "new"
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    changeSceen: (sceen: String) => dispatch(activateSceen(sceen)),
-    getData: bindActionCreators(getData, dispatch)
+    changeSceen: (sceen: string) => dispatch(activateSceen(sceen))
   };
 };
 

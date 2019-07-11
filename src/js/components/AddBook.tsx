@@ -1,14 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { StoreState, Books, Book } from '../types/index';
-import { addBook, activateSceen } from '../actions/index';
+import { addBook, activateSceen, updateBook } from '../actions/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { AnyAction } from 'redux';
+import { AnyAction, bindActionCreators } from 'redux';
 
 interface IProps {
   books: Book[];
-  postBook: (book: Book) => Object;
-  changeSceen: (sceen: String) => Object;
+  newBookCheck: Boolean;
+  bookToUpdate: Book | any;
+  postBook: (book: Book) => any;
+  putBook: (book: Book) => any;
+  changeSceen: (sceen: string) => Object;
 }
 
 interface IState{
@@ -26,23 +29,43 @@ interface IState{
 export class AddBook extends React.Component<IProps, IState>{
   constructor(props: IProps) {
     super(props);
-    this.state = {
-      "isbn": "9781449337711",
-      "title": "Designing Evolvable Web APIs with ASP.NET",
-      "subtitle": "Harnessing the Power of the Web",
-      "author": "Glenn Block, et al.",
-      "published": "2014-04-07",
-      "publisher": "O'Reilly Media",
-      "pages": 538,
-      "description": "Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft’s ASP.NET Web API framework. In the process, you’ll learn how design and implement a real-world Web API.",
-      "website": "http://chimera.labs.oreilly.com/books/1234000001708/index.html"
-    };
-    this.handleClick = this.handleClick.bind(this);
+    if(props.newBookCheck){
+      this.state = {
+        "isbn": "",
+        "title": "",
+        "subtitle": "",
+        "author": "",
+        "published": "",
+        "publisher": "",
+        "pages": 0,
+        "description": "",
+        "website": ""
+      };
+    }else{
+      this.state = props.bookToUpdate;
+    }
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
   };
 
-  handleClick() {
+  handleAdd() {
     this.props.postBook({
+         isbn: this.state.isbn,
+         title: this.state.title,
+         subtitle: this.state.subtitle,
+         author: this.state.author,
+         published: this.state.published,
+         publisher: this.state.publisher,
+         pages: this.state.pages,
+         description: this.state.description,
+         website: this.state.website
+     });
+     this.props.changeSceen("Home");
+  }
+
+  handleUpdate() {
+    this.props.putBook({
          isbn: this.state.isbn,
          title: this.state.title,
          subtitle: this.state.subtitle,
@@ -70,7 +93,7 @@ export class AddBook extends React.Component<IProps, IState>{
       <div style={{display: "block", margin: "10px", border: "1px solid #ccc", borderRadius: "10px"}}>
         <div style={{display: "flex"}}>
           <div style={{flex: 1}}>ISBN :</div>
-          <div style={{flex: 1}}><input value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/></div>
+          <div style={{flex: 1}}><input disabled={!this.props.newBookCheck} value={this.state.isbn} onChange={this.changeHandler} type="text" name="isbn"/></div>
         </div>
         <div style={{display: "flex"}}>
           <div style={{flex: 1}}>Title :</div>
@@ -105,9 +128,17 @@ export class AddBook extends React.Component<IProps, IState>{
           <div style={{flex: 1}}><input value={this.state.website} onChange={this.changeHandler} type="text" name="website"/></div>
         </div>
       </div>
-      <div>
-        <button onClick={this.handleClick}>Add</button>
-      </div>
+      {
+        this.props.newBookCheck ?
+        <div>
+          <button onClick={this.handleAdd}>Add</button>
+        </div>
+        :
+        <div>
+          <button onClick={this.handleUpdate}>Update</button>
+        </div>
+      }
+
     </div>
   }
 };
@@ -120,8 +151,9 @@ const mapStateToProps = (state: StoreState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    postBook: (book: Book) => dispatch(addBook(book)),
-    changeSceen: (sceen: String) => dispatch(activateSceen(sceen))
+    postBook: bindActionCreators(addBook, dispatch),
+    putBook: bindActionCreators(updateBook, dispatch),
+    changeSceen: (sceen: string) => dispatch(activateSceen(sceen))
   };
 };
 
