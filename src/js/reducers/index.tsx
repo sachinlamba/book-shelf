@@ -83,7 +83,7 @@ const initialState = {
     }
   ],
   "user": "admin",
-  "pageActive": "Home"
+  "pageActive": "Search"
 };
 
 function rootReducer(state: StoreState = initialState, action: ActionPayload):StoreState {

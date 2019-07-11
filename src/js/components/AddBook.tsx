@@ -7,6 +7,7 @@ import { AnyAction } from 'redux';
 
 interface IProps {
   books: Book[];
+  bookNumber: number;
   postBook: (book: Book) => Object;
   changeSceen: (sceen: String) => Object;
 }
@@ -66,7 +67,7 @@ export class AddBook extends React.Component<IProps, IState>{
 
   render() {
     return <div>
-      <h2>Fill Book Details</h2>
+      <h3>Book No {this.props.bookNumber}</h3>
       <div style={{display: "block", margin: "10px", border: "1px solid #ccc", borderRadius: "10px"}}>
         <div style={{display: "flex"}}>
           <div style={{flex: 1}}>ISBN :</div>

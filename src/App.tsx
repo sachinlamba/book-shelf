@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import BooksList from "./js/components/BooksList";
-import AddBook from "./js/components/AddBook";
+import AddBooks from "./js/components/AddBooks";
 import { connect } from "react-redux";
 import { StoreState, Books, Book } from './js/types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
@@ -42,7 +42,7 @@ export class App extends React.Component<IProps, IState>{
             <button onClick={this.handleClick}>Want to Add a Book?</button>
           </div>
         :
-          <div><AddBook /></div>
+          <div><AddBooks /></div>
       }
       </div>
     );
