@@ -66,33 +66,33 @@ export class BooksList extends React.Component<IProps, IState>{
       <div className="list-title">Books Shelf</div>
       <div>
       <div className="input-div">
-        <input className="input-field" type="text" name="searchText" onChange={this.searchTextUpdate} value={this.state.searchText}/>
+        <input className="input-field" placeholder="Enter as per field selected..." type="text" name="searchText" onChange={this.searchTextUpdate} value={this.state.searchText}/>
       </div>
         <div className="book-finder">
-          <div className={"field " + this.state.searchField == "isbn" ? "active-field" : ""}>
-            <input type="radio" checked={this.state.searchField == "isbn"} onChange={this.searchFieldUpdate.bind(this, "isbn")} /> ISBN
+            <div className={"field " + (this.state.searchField == "isbn" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "isbn")}>
+              <input type="radio" checked={this.state.searchField == "isbn"} /> ISBN
+            </div>
+          <div className={"field " + (this.state.searchField == "title" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "title")}>
+            <input type="radio" checked={this.state.searchField == "title"} /> Title
           </div>
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "title"} onChange={this.searchFieldUpdate.bind(this, "title")} /> Title
+          <div className={"field " + (this.state.searchField == "subtitle" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "subtitle")}>
+            <input type="radio" checked={this.state.searchField == "subtitle"} /> Subtitle
           </div>
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "subtitle"} onChange={this.searchFieldUpdate.bind(this, "subtitle")} /> Subtitle
+          <div className={"field " + (this.state.searchField == "author" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "author")}>
+            <input type="radio" checked={this.state.searchField == "author"} /> Author Name
           </div>
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "author"} onChange={this.searchFieldUpdate.bind(this, "author")} /> Author Name
-          </div>
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "publisher"} onChange={this.searchFieldUpdate.bind(this, "publisher")} /> Publisher
+          <div className={"field " + (this.state.searchField == "publisher" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "publisher")}>
+            <input type="radio" checked={this.state.searchField == "publisher"} /> Publisher
           </div>
           {
-            // <input type="radio" checked={this.state.searchField == "published"} onChange={this.searchFieldUpdate.bind(this, "published")} /> Published On
-            // <input type="radio" checked={this.state.searchField == "pages"} onChange={this.searchFieldUpdate.bind(this, "pages")} /> Pages
+            // <input type="radio" checked={this.state.searchField == "published"} onClick={this.searchFieldUpdate.bind(this, "published")} /> Published On
+            // <input type="radio" checked={this.state.searchField == "pages"} onClick={this.searchFieldUpdate.bind(this, "pages")} /> Pages
           }
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "description"} onChange={this.searchFieldUpdate.bind(this, "description")} /> Description
+          <div className={"field " + (this.state.searchField == "description" ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "description")}>
+            <input type="radio" checked={this.state.searchField == "description"} /> Description
           </div>
-          <div className="field">
-            <input type="radio" checked={this.state.searchField == "website"} onChange={this.searchFieldUpdate.bind(this, "website")} /> Website Link
+          <div className={"field " + (this.state.searchField == "website  " ? "active-field" : "")} onClick={this.searchFieldUpdate.bind(this, "website")}>
+            <input type="radio" checked={this.state.searchField == "website"} /> Website Link
           </div>
         </div>
       </div>

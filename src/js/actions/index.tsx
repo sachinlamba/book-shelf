@@ -1,4 +1,4 @@
-import { ADD_BOOK, ACTIVATE_SCEEN, OPEN_BOOK } from "../constants/action-types";
+import { ADD_BOOK, ACTIVATE_SCEEN, OPEN_BOOK, HIDE_POPUP } from "../constants/action-types";
 import { ActionPayload, Book } from '../types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
@@ -17,6 +17,12 @@ export function openBook(book: Book | string): ActionPayload {
   }
 };
 
+export function hide_popup(): ActionPayload {
+  return {
+    type: HIDE_POPUP
+  }
+};
+
 export function addBook(book: Book) {
   return function(dispatch : ThunkDispatch<any, any, AnyAction>) {
     return fetch("http://localhost:3001/books/", {
@@ -24,9 +30,9 @@ export function addBook(book: Book) {
              headers: {'Content-Type':'application/json'},
              body: JSON.stringify({data: book})
           })
-      // .then(response => response.json())
+      .then(response => response.json())
       .then(json => {
-        dispatch({ type: "ADD_BOOK", payload: json });
+        dispatch({ type: "ADD_BOOK", payload: json.message });
       })
       .catch(error => dispatch({
         type: 'BOOK_INSERT_FAILED',
@@ -42,9 +48,9 @@ export function updateBook(book: Book) {
              headers: {'Content-Type':'application/json'},
              body: JSON.stringify({data: book})
           })
-      // .then(response => response.json())
+      .then(response => response.json())
       .then(json => {
-        dispatch({ type: "UPDATE_BOOK", payload: json });
+        dispatch({ type: "UPDATE_BOOK", payload: json.message });
       })
       .catch(error => dispatch({
         type: 'BOOK_UPDATE_FAILED',
@@ -58,9 +64,9 @@ export function deleteBook(isbn: string) {
     return fetch("http://localhost:3001/books/"+isbn, {
              method: 'delete'
           })
-      // .then(response => response.json())
+      .then(response => response.json())
       .then(json => {
-        dispatch({ type: "DELETE_BOOK", payload: json });
+        dispatch({ type: "DELETE_BOOK", payload: json.message });
       })
       .catch(error => dispatch({
         type: 'BOOK_DELETE_FAILED',

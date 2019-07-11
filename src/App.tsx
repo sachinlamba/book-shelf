@@ -7,14 +7,17 @@ import { connect } from "react-redux";
 import { StoreState, Books, Book } from './js/types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction, bindActionCreators } from 'redux';
-import { activateSceen } from './js/actions/index';
+import { activateSceen, hide_popup } from './js/actions/index';
 
 interface IProps {
   pageActive: string;
+  popupShow: Boolean;
   books: Book[];
   bookToUpdate: Book | string;
   newBookCheck: Boolean;
   changeSceen: (sceen: string) => Object;
+  hide_popup: () => Object;
+  popupMessage: string;
 }
 
 interface IState{
@@ -28,6 +31,10 @@ export class App extends React.Component<IProps, IState>{
       pageActive: props.pageActive
     };
   };
+
+  hidePopup(){
+    this.props.hide_popup()
+  }
 
    render() {
      let page = [];
@@ -47,6 +54,20 @@ export class App extends React.Component<IProps, IState>{
      }
      return (
       <div className="App">
+      {
+        this.props.popupShow &&
+        <div className="popup">
+          <div className="blur-background"></div>,
+          <div className="preview-div">
+                  <div title="Close" className="cross-button" onClick={this.hidePopup.bind(this)}>&times;</div>
+                  <div className="message-text">{this.props.popupMessage}</div>
+                  <div className="horizontal-line"></div>
+                  <div className="footer-buttons" >
+                    <div className="button-style save-button" onClick={this.hidePopup.bind(this)}>Ok</div>
+                  </div>
+                </div>
+        </div>
+      }
       <Header />
       { page }
       </div>
@@ -59,13 +80,16 @@ const mapStateToProps = (store: StoreState) => {
     books: store.books,
     pageActive: store.pageActive,
     bookToUpdate: store.openBook,
-    newBookCheck: store.openBook == "new"
+    newBookCheck: store.openBook == "new",
+    popupShow: store.popupShow,
+    popupMessage: store.popupMessage
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    changeSceen: (sceen: string) => dispatch(activateSceen(sceen))
+    changeSceen: (sceen: string) => dispatch(activateSceen(sceen)),
+    hide_popup: () => dispatch(hide_popup())
   };
 };
 

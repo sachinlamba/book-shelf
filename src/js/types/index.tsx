@@ -3,7 +3,9 @@ export interface StoreState {
     user: string,
     pageActive: string,
     openBook: Book | string,
-    reload: boolean
+    reload: boolean,
+    popupShow: boolean,
+    popupMessage: string
 }
 
 export interface ActionPayload {
