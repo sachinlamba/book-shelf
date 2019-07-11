@@ -1,17 +1,20 @@
 import React from 'react';
 import './App.css';
 import BooksList from "./js/components/BooksList";
-import AddBooks from "./js/components/AddBooks";
+import AddBook from "./js/components/AddBook";
+import Header from "./js/components/Header";
 import { connect } from "react-redux";
 import { StoreState, Books, Book } from './js/types/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { AnyAction } from 'redux';
+import { AnyAction, bindActionCreators } from 'redux';
 import { activateSceen } from './js/actions/index';
+import { getData } from "./js/actions/index";
 
 interface IProps {
   pageActive: String;
   books: Book[];
   changeSceen: (sceen: String) => Object;
+  getData: () => any;
 }
 
 interface IState{
@@ -24,26 +27,35 @@ export class App extends React.Component<IProps, IState>{
     this.state = {
       pageActive: props.pageActive
     };
-    this.handleClick = this.handleClick.bind(this);
   };
 
-  handleClick() {
-    this.props.changeSceen("Search");
-  }
+  componentDidMount(){
+    this.props.getData();
+  };
 
    render() {
+     let page = [];
+     switch(this.props.pageActive){
+       case "Home":
+          page.push(
+              <div>
+              <h2>Books Shelf</h2>
+              <BooksList />
+            </div>
+          );
+          break;
+        case "NewBook":
+          page.push(
+              <div><AddBook /></div>
+          );
+          break;
+        default:
+          page.push(<div>Wrong page active</div>)
+     }
      return (
       <div className="App">
-      {
-        this.props.pageActive == "Home" ?
-          <div>
-            <h2>Books Shelf</h2>
-            <BooksList />
-            <button onClick={this.handleClick}>Want to Add a Book?</button>
-          </div>
-        :
-          <div><AddBooks /></div>
-      }
+      <Header />
+      { page }
       </div>
     );
   }
@@ -58,7 +70,8 @@ const mapStateToProps = (store: StoreState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    changeSceen: (sceen: String) => dispatch(activateSceen(sceen))
+    changeSceen: (sceen: String) => dispatch(activateSceen(sceen)),
+    getData: bindActionCreators(getData, dispatch)
   };
 };
 
